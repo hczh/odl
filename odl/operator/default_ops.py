@@ -32,7 +32,7 @@ class ScalingOperator(Operator):
 
     """Operator of multiplication with a scalar.
 
-        ``ScalingOperator(s)(x) == s * x``
+    ``ScalingOperator(s)(x) == s * x``
     """
 
     def __init__(self, domain, scalar):
@@ -172,7 +172,9 @@ class IdentityOperator(ScalingOperator):
 
 class LinCombOperator(Operator):
 
-    """Operator mapping two space elements to a linear combination::
+    """Operator mapping two space elements to a linear combination.
+
+    This operator implements::
 
         LinCombOperator(a, b)([x, y]) == a * x + b * y
     """
@@ -225,7 +227,7 @@ class MultiplyOperator(Operator):
 
     """Operator multiplying by a fixed space or field element.
 
-        ``MultiplyOperator(y)(x) == x * y``
+    ``MultiplyOperator(y)(x) == x * y``
 
     Here, ``y`` is a `LinearSpaceElement` or `Field` element and
     ``x`` is a `LinearSpaceElement`.
@@ -353,7 +355,7 @@ class PowerOperator(Operator):
 
     """Operator taking a fixed power of a space or field element.
 
-        ``PowerOperator(p)(x) == x ** p``
+    ``PowerOperator(p)(x) == x ** p``
 
     Here, ``x`` is a `LinearSpaceElement` or `Field` element and ``p`` is
     a number. Hence, this operator can be defined either on a
@@ -452,7 +454,7 @@ class PowerOperator(Operator):
 class InnerProductOperator(Operator):
     """Operator taking the inner product with a fixed space element.
 
-        ``InnerProductOperator(y)(x) <==> y.inner(x)``
+    ``InnerProductOperator(y)(x) <==> y.inner(x)``
 
     This is only applicable in inner product spaces.
 
@@ -542,7 +544,7 @@ class NormOperator(Operator):
 
     """Vector space norm as an operator.
 
-        ``NormOperator()(x) <==> x.norm()``
+    ``NormOperator()(x) <==> x.norm()``
 
     This is only applicable in normed spaces.
 
@@ -631,7 +633,7 @@ class DistOperator(Operator):
 
     """Operator taking the distance to a fixed space element.
 
-        ``DistOperator(y)(x) == y.dist(x)``
+    ``DistOperator(y)(x) == y.dist(x)``
 
     This is only applicable in metric spaces.
 
@@ -731,7 +733,7 @@ class ConstantOperator(Operator):
 
     """Operator that always returns the same value.
 
-        ``ConstantOperator(y)(x) == y``
+    ``ConstantOperator(y)(x) == y``
     """
 
     def __init__(self, constant, domain=None, range=None):
@@ -820,9 +822,9 @@ class ConstantOperator(Operator):
 
 class ZeroOperator(Operator):
 
-    """Operator mapping each element to the zero element::
+    """Operator mapping each element to the zero element.
 
-        ZeroOperator(space)(x) == space.zero()
+    ``ZeroOperator(space)(x) == space.zero()``
     """
 
     def __init__(self, domain, range=None):
@@ -895,7 +897,7 @@ class RealPart(Operator):
         Parameters
         ----------
         space : `TensorSpace`
-            Space which real part should be taken, needs to implement
+            Space in which the real part should be taken, needs to implement
             ``space.real_space``.
 
         Examples
@@ -966,12 +968,12 @@ class RealPart(Operator):
         space, this does not satisfy the usual adjoint equation:
 
         .. math::
-            \langle Ax, y \rangle = \langle x, A^*y \rangle
+            \langle Ax, y \\rangle = \langle x, A^*y \\rangle
 
         Instead it is an adjoint in a weaker sense as follows:
 
         .. math::
-            \langle AA^*x, y \rangle = \langle A^*x, A^*y \rangle
+            \langle AA^*x, y \\rangle = \langle A^*x, A^*y \\rangle
 
         Examples
         --------
@@ -1002,14 +1004,17 @@ class RealPart(Operator):
 
 
 class ImagPart(Operator):
+
+    """Operator that extracts the imaginary part of a vector."""
+
     def __init__(self, space):
-        """Operator that extracts the imaginary part of a vector.
+        """Initialize a new instance.
 
         Parameters
         ----------
         space : `TensorSpace`
-            Space which imaginary part should be taken, needs to implement
-            ``space.real_space``.
+            Space in which the imaginary part should be taken, needs to
+            implement ``space.real_space``.
 
         Examples
         --------
@@ -1071,12 +1076,12 @@ class ImagPart(Operator):
         space, this does not satisfy the usual adjoint equation:
 
         .. math::
-            \langle Ax, y \rangle = \langle x, A^*y \rangle
+            \langle Ax, y \\rangle = \langle x, A^*y \\rangle
 
         Instead it is an adjoint in a weaker sense as follows:
 
         .. math::
-            \langle AA^*x, y \rangle = \langle A^*x, A^*y \rangle
+            \langle AA^*x, y \\rangle = \langle A^*x, A^*y \\rangle
 
         Examples
         --------
@@ -1116,10 +1121,10 @@ class ComplexEmbedding(Operator):
         Parameters
         ----------
         space : `TensorSpace`
-            Space whose real part should be taken, needs to implement
+            Space whose into which should be embedded, needs to implement
             ``space.complex_space``.
         scalar : ``space.complex_space.field`` element, optional
-            Scalar which the incomming vectors should be multiplied by in order
+            Scalar to be multiplied with incoming vectors in order
             to get the complex vector.
 
         Examples
@@ -1199,12 +1204,12 @@ class ComplexEmbedding(Operator):
         space, this does not satisfy the usual adjoint equation:
 
         .. math::
-            \langle Ax, y \rangle = \langle x, A^*y \rangle
+            \langle Ax, y \\rangle = \langle x, A^*y \\rangle
 
         Instead it is an adjoint in a weaker sense as follows:
 
         .. math::
-            \langle A^*Ax, y \rangle = \langle Ax, Ay \rangle
+            \langle A^*Ax, y \\rangle = \langle Ax, Ay \\rangle
 
         Examples
         --------
